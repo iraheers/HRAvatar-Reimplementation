@@ -187,12 +187,13 @@ python metrics.py --model_path outputs/insta/bala
 ## 📖 BibTeX
 If you find our work helpful, please cite:
 ```bibtex
-@article{zhang2025hravatar,
-  title={HRAvatar: High-Quality and Relightable Gaussian Head Avatar},
-  author={Zhang, Dongbin and Liu, Yunfei and Lin, Lijian and Zhu, Ye and Chen, Kangjie and Qin, Minghan 
-  and Li, Yu and Wang, Haoqian},
-  journal={arXiv preprint arXiv:2503.08224},
-  year={2025}
+@InProceedings{HRAvatar,
+    author    = {Zhang, Dongbin and Liu, Yunfei and Lin, Lijian and Zhu, Ye and Chen, Kangjie and Qin, Minghan and Li, Yu and Wang, Haoqian},
+    title     = {HRAvatar: High-Quality and Relightable Gaussian Head Avatar},
+    booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+    month     = {June},
+    year      = {2025},
+    pages     = {26285-26296}
 }
 ```
 
