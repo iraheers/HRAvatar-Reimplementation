@@ -39,15 +39,15 @@ HRAvatar, a 3DGS-based method that reconstructs high-fidelity, relightable 3D he
 ## 🖥️ Cloning the Repository
 ```shell
 # SSH
-git clone git@github.com:EastbeanZhang/HRAvatar.git --recursive
+git clone git@github.com:Pixel-Talk/HRAvatar.git
 ```
 or
 ```shell
 # HTTPS
-git clone https://github.com/EastbeanZhang/HRAvatar.git --recursive
+git clone https://github.com/Pixel-Talk/HRAvatar.git
 ```
 
-The components have been tested on Ubuntu Linux 18.04. Instructions for setting up and running each of them are in the below sections.
+The components have been tested on Ubuntu Linux 20.04. Instructions for setting up and running each of them are in the below sections.
 
 ## 📂 Datasets preparation
 Download the insta dataset (already with extracted mask) from [INSTA](https://github.com/Zielon/INSTA). The dataset can be accessed [here](https://keeper.mpdl.mpg.de/d/5ea4d2c300e9444a8b0b/).
