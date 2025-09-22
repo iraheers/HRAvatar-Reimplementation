@@ -5,14 +5,16 @@
 ## 📌 Overview
 This repository contains my reimplementation of the CVPR 2025 paper "HRAvatar: High-Quality and Relightable Gaussian Head Avatar" by Zhang et al. The original implementation is available at Pixel-Talk/HRAvatar. HRAvatar uses 3D Gaussian Splatting to reconstruct high-fidelity, relightable 3D head avatars, achieving real-time rendering and realistic visual effects under varying lighting conditions. I tested this implementation with the HDTF dataset and a custom video.
 
-
-<p align="center">
-  <img src="assets/docs/readme_figs/teaser.png" alt="Teaser image" style="background:white; padding:10px; border-radius:10px;" />
-</p>
-
 | <img src="assets/docs/readme_figs/pipeline.png" alt="Pipeline" style="background:white; padding:10px; border-radius:10px;" /> |
 | :----------------------------------------------------------: |
-| Pipeline of HRAvatar |   
+| Pipeline of HRAvatar |
+
+## 📸 Sample Results
+
+<p align="center">
+  <img src="assets/results/custom_video_front.gif" width="300"/>
+  <img src="assets/results/HDTF_katie_side.gif" width="300"/>
+</p>
 
 ## 🖥️ Cloning the Repository
 ```shell
@@ -62,8 +64,9 @@ Note: If you encounter dependency issues, ensure fsspec[http]>=2023.5.0 is insta
 #### Frame Cropping and Matting
 For HDTF or custom videos:
 1. Install dependencies:
-  - Download face-parsing model (79999_iter.pth) and place in preprocess/submodules/face-parsing.PyTorch/res/cp/.
-  -  Download RobustVideoMatting model (rvm_resnet50.pth) and place in preprocess/submodules/RobustVideoMatting.
+  - Download face-parsing model (79999_iter.pth) and place in preprocess/submodules/face-parsing.PyTorch/res/cp/.[Download Here](https://drive.google.com/file/d/154JgKpzCPW82qINcVieuPH3fZ2e0P812/view?usp=drive_open)
+  -  Download RobustVideoMatting model (rvm_resnet50.pth) and place in preprocess/submodules/RobustVideoMatting. [Download Here](https://github.com/PeterL1n/RobustVideoMatting/releases/download/v1.0.0/rvm_resnet50.pth)
+
 
 2. Run
 ```shell
