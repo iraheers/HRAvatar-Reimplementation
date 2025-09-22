@@ -91,6 +91,7 @@ class TrackedData(torch.utils.data.Dataset):
             imagepath_list = natsorted(imagepath_list)
 
         tracked_params_path = os.path.join(path, "tracked_params.json")
+        print('load tracked params from ', tracked_params_path)
         self.flame_scale = 4.0
         if not os.path.exists(tracked_params_path):
             tracked_params_path = os.path.join(path, "tracked_params_v2.json")

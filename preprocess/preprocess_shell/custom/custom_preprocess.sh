@@ -4,11 +4,11 @@ cx=256.00
 cy=256.00
 resize=512
 
-data_names=("subject")
-shape_data_name="subject"
-data_path_dir="/path/to/subject"
+data_names=("me")
+shape_data_name="me"
+data_path_dir="/var/www/HRAvatar/data/custom"
 
-pwd="/path/to/HRAvatar/preprocess"
+pwd="/var/www/HRAvatar/preprocess"
 path_deca=$pwd'/submodules/DECA'
 visible_device=0
 fps=30
@@ -20,6 +20,18 @@ do
     CUDA_VISIBLE_DEVICES=$visible_device python preprocess/crop_and_matting.py --source $data_path_dir --name $data_name --fps $fps \
         --image_size $resize $resize --matting --crop_image --mask_clothes True
 done
+
+echo "Albedo extraction"
+for data_name in "${data_names[@]}"
+do
+    echo $data_name
+    CUDA_VISIBLE_DEVICES=$visible_device python preprocess/submodules/IntrinsicAnything/inference.py \
+    --input_dir  $data_path_dir/$shape_data_name/image \
+    --model_dir  assets/intrinsic_anything/albedo \
+    --output_dir $data_path_dir/$shape_data_name/albedo \
+    --ddim 100 --batch_size 10 --image_interval 3
+done
+
 
 echo "DECA FLAME parameter estimation"
 cd $path_deca

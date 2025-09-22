@@ -1,3 +1,27 @@
+# Byte-compiled
+__pycache__/
 *.pyc
-.vscode/
+
+# Data and outputs
+data/
 outputs/
+videos/
+
+# Models / weights / checkpoints
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.npz
+*.npy
+*.pkl
+*.obj
+*.task
+
+# Submodule build outputs
+build/
+*.egg-info/
+
+# IDE / OS files
+.DS_Store
+*.swp
