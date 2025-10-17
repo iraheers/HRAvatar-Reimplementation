@@ -17,6 +17,21 @@ from arguments import ModelParams, PipelineParams, OptimizationParams,init_args,
 from metrics import evaluate
 from render import render_set,render_multi_views
 from scene.data_loader import TrackedData
+# Patch torch.nn.init.kaiming_uniform_ to ignore generator arg
+import torch.nn.init as init
+import inspect
+
+# If kaiming_uniform_ does not accept 'generator', wrap it
+sig = inspect.signature(init.kaiming_uniform_)
+if 'generator' not in sig.parameters:
+    original_kaiming = init.kaiming_uniform_
+
+    def kaiming_uniform_no_generator(tensor, a=0, mode='fan_in', nonlinearity='leaky_relu', generator=None):
+        # Ignore generator kwarg
+        return original_kaiming(tensor, a=a, mode=mode, nonlinearity=nonlinearity)
+
+    init.kaiming_uniform_ = kaiming_uniform_no_generator
+
 try:
     from torch.utils.tensorboard import SummaryWriter
     TENSORBOARD_FOUND = True
@@ -36,6 +51,11 @@ def training(all_args, testing_epochs, saving_epochs, checkpoint_epochs, checkpo
     
     gaussians = GaussianHeadModel(all_args.sh_degree,all_args)
     scene = Head_Scene(all_args, gaussians,dataset=train_dataset)
+
+    # RandLoRA parameter verification - ADD HERE
+    trainable_params = sum(p.numel() for p in gaussians.flame_params_net.expression_encoder.parameters() if p.requires_grad)
+    total_params = sum(p.numel() for p in gaussians.flame_params_net.expression_encoder.parameters())
+    print(f"RandLoRA - Trainable: {trainable_params:,} / Total: {total_params:,} ({100 * trainable_params / total_params:.2f}%)")
     
     if all_args.epochs==0:
         all_args.epochs=all_args.iterations//train_dataset.data_len
@@ -234,6 +254,12 @@ def training(all_args, testing_epochs, saving_epochs, checkpoint_epochs, checkpo
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(epoch) + ".pth")
     print("Training complete.")
     logging.info(f"Training complete.")
+
+    #check lora
+    for name, param in gaussians.flame_params_net.expression_encoder.named_parameters():
+        if param.requires_grad:
+            print(f"{name}: {param.shape}")
+
     
    
     if all_args.render_and_eval:
